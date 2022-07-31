@@ -43,4 +43,3 @@ if __name__ =='__main__':
 
 # Client Token:
 client.run(os.environ["DISCORD_TOKEN"])
-#client.run('MTAwMzAwNDMzODg3NDEwNjA0Ng.Gfnx24.52sk9eHSvhBvOfWEt8V1M3EFcgP8S7cVmFAhe0')
