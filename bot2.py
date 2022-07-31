@@ -37,9 +37,5 @@ if __name__ =='__main__':
     for extension in initial_extensions:
         client.load_extension(extension)
 
-#
-
-
-
 # Client Token:
 client.run(os.environ['DISCORD_TOKEN'])
