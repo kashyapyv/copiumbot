@@ -24,9 +24,9 @@ class UI(commands.Cog):
     def __init__(self, client):
         self.client = client
     
-    ServerID = 217633790690852864
+    ServerID = [217633790690852864,496699147286609920]
 
-    @nextcord.slash_command(name = "attendance", description="Button Test", guild_ids=[ServerID])
+    @nextcord.slash_command(name = "attendance", description="Button Test", guild_ids=ServerID)
     async def Attend(self, interaction: Interaction):
         view = attendance()
         await interaction.response.send_message("How does this work?", view=view)

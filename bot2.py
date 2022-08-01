@@ -7,22 +7,28 @@ import psycopg2
 
 intents = nextcord.Intents.default()
 intents.members = True
+intents.message_content = True
 
 client = commands.Bot(command_prefix = '$', intents=intents)
-
-conn = psycopg2.connect(host=os.environ['HOST_NAME'], database=os.environ['DATABASE'], user=os.environ['USER_NAME'], password=os.environ['PASS_WORD'])
 
 #Check if bot is on
 @client.event
 async def on_ready():
     print("Logged in as: {0.user}".format(client))
-    
+    #Database set up
+    conn = psycopg2.connect(host=os.environ['HOST_NAME'], database=os.environ['DATABASE'], user=os.environ['USER_NAME'], password=os.environ['PASS_WORD'])
+    cur = conn.cursor()
+    cur.execute('SELECT version()')
+    db_version = cur.fetchone()
+    print(f"Database version: {db_version}")
+    cur.close()
 
 
-ServerID = 217633790690852864
+
+ServerID = [217633790690852864,496699147286609920]
 
 #1st slash command
-@client.slash_command(name='hello', description='It just says helllo back',guild_ids=[ServerID])
+@client.slash_command(name='hello', description='It just says helllo back',guild_ids=ServerID)
 async def hellocommand(interaction: Interaction):
     await interaction.response.send_message("Hello")
 
