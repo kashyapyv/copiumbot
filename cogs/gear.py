@@ -12,7 +12,7 @@ import sys
 
 #TServer ID:
 ServerID = [217633790690852864,496699147286609920]
-conn = psycopg2.connect(host=os.environ['HOST_NAME'], database=os.environ['DATABASE'], user=os.environ['USER_NAME'], password=os.environ['PASS_WORD'])
+
 '''  cur = conn.cursor()
         guild = interaction.guild.id
         try:
@@ -89,25 +89,9 @@ class gear(commands.Cog):
     #class selection
     @gear.subcommand(name="class", description = "Select Main Class")
     async def mainclass(self, interaction: Interaction):
+        conn = psycopg2.connect(host=os.environ['HOST_NAME'], database=os.environ['DATABASE'], user=os.environ['USER_NAME'], password=os.environ['PASS_WORD'])
         cur = conn.cursor()
         guild = interaction.guild.id
-        try:
-            gear_table_query = """CREATE TABLE IF NOT EXISTS GEAR_""" + str(guild) + """(
-            USER_ID VARCHAR(20) NOT NULL,
-            AP INTEGER DEFAULT 0,
-            AAP INTEGER DEFAULT 0,
-            DP INTEGER DEFAULT 0,
-            CLASS VARCHAR(20) DEFAULT 'NOT SET',
-            PRIMARY KEY(USER_ID)
-            )
-            """
-            setup_table = cur.execute(gear_table_query)
-        except(Exception, psycopg2.DatabaseError) as error:
-            print(error)
-            conn.rollback()
-        finally:
-            if conn.closed == 0:
-                table = "GEAR_"+str(guild)
         table = "GEAR_"+str(guild)
         view = DropdownView()
         await interaction.response.send_message("Select Class",view=view, ephemeral=True)
@@ -142,6 +126,7 @@ class gear(commands.Cog):
     #create command
     @gear.subcommand(name="new", description= "Use this for the first time: ")
     async def newg(self, interaction: Interaction,ap:int=SlashOption(required=False,default=0), aap:int=SlashOption(required=False,default=0), dp:int=SlashOption(required=False,default=0)):
+        conn = psycopg2.connect(host=os.environ['HOST_NAME'], database=os.environ['DATABASE'], user=os.environ['USER_NAME'], password=os.environ['PASS_WORD'])
         cur = conn.cursor()
         guild = interaction.guild.id
         table = "GEAR_"+str(guild)
@@ -162,6 +147,7 @@ class gear(commands.Cog):
     #update command
     @gear.subcommand(name="update", description= "Update new gear values: ")
     async def update(self, interaction: Interaction,ap:int=SlashOption(required=False,default=0), aap:int=SlashOption(required=False,default=0), dp:int=SlashOption(required=False,default=0)):
+        conn = psycopg2.connect(host=os.environ['HOST_NAME'], database=os.environ['DATABASE'], user=os.environ['USER_NAME'], password=os.environ['PASS_WORD'])
         cur = conn.cursor()
         guild = interaction.guild.id
         table = "GEAR_"+str(guild)
