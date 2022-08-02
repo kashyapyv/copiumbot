@@ -66,7 +66,7 @@ class mainclass(nextcord.ui.Select):
     async def callback(self, interaction: Interaction):
         if self.values[0] == "Archer":
             return await interaction.response.send_message("Oh no griefing yourself")
-        await interaction.response.send_message(f'Selected:{self.values[0]}') 
+        await interaction.response.send_message(f'Selected:{self.values[0]}', ephemeral=True) 
 
 class DropdownView(nextcord.ui.View):
     def __init__(self):
@@ -95,7 +95,7 @@ class gear(commands.Cog):
         table = "GEAR_"+str(guild)
         view = DropdownView()
         await interaction.response.send_message("Select Class",view=view, ephemeral=True)
-  
+
     '''#create table
     @gear.subcommand(name="createtable")
     async def createtable(self, interaction: Interaction):
